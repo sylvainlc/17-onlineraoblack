@@ -1,0 +1,65 @@
+Conditionally on $U_{0:t}$ and $Y_{0:t}$, $Z_t$ is a Gaussian random vector with mean $\mu_t$ and variance $P_t$. Write $\Psi_t = (\mu_{t},P_{t})$, using Kalman filtering techniques, the update of these quantities is written:
+\[
+\Psi_t = \Phi^{U_t,Y_t}(\Psi_{t-1})\eqsp,
+\]
+where for any $u,y$ and any $(\mu,P)$, 
+\[
+\Phi_t^{u,y}(\mu,P) = \left(\tilde{\mu} + K\left(y - C(u)\tilde{\mu}\right),\left(I-KC(u)\right)\tilde{P}\right)\eqsp,
+\] 
+with:
+\begin{align*}
+\tilde{\mu} &= A(u)\mu\eqsp,\\
+\tilde{P} &= A(u)PA(u)^t + B(u)B(u)^t\eqsp,\\
+K  &=  \tilde{P}C(u)^t\left(C(u)\tilde{P}C(u)^t + D(u)D(u)^t \right)^{-1}\eqsp.
+\end{align*}
+To compute $\mathsf{H}_t $ online, define: 
+\[
+\mathsf{T}_t[h_t](U_t,\Psi_t) = \mathbb{E}\left[h_t(U_{0:t},X_{0:t})\middle|Y_{0:t},U_t,\Psi_t\right]\eqsp.
+\]
+This expectation may be computed recursively by noting that
+\begin{align*}
+\mathsf{T}_t[h_t](U_t,\Psi_t) &= \mathbb{E}\left[h_{t-1}(U_{0:t-1},X_{0:t-1})\middle|Y_{0:t},U_t,\Psi_t\right] \\
+&\hspace{2cm}+ \mathbb{E}\left[\tilde{h}_t(U_{t-1},U_t)\check{h}_t(X_{t-1},X_t)\middle|Y_{0:t},U_t,\Psi_t\right]\eqsp,\\
+&= \mathbb{E}\left[\mathsf{T}_{t-1}[h_{t-1}](U_{t-1},\Psi_{t-1}) \middle|Y_{0:t},U_{t},\Psi_t\right] \\
+&\hspace{2cm}+ \mathbb{E}\left[\tilde{h}_t(U_{t-1},U_t)\check{h}_t(X_{t-1},X_t)\middle|Y_{0:t},U_t,\Psi_t\right]\eqsp.
+\end{align*}
+The conditional distribution of $(U_{t-1},X_{t-1},X_t)$ given $(Y_{0:t},U_t,\Psi_t)$ may be approximated using the weighted samples at time $t-1$ by:
+%\[
+%\frac{\sum_{i=1}^N\omega_{t-1}^i \delta_{u^i_{t-1}}(u_{t-1})\varphi_{\Psi^i_{t-1}}(x_{t-1})Q(u^i_{t-1},u_t)\exp\left\{(x_t-A(u_t)x_{t-1})^t\bar{B}^{-1}(u_t)(x_t-A(u_t)x_{t-1})/2\right\}\exp\left\{(y_t-C(u_t)x_{t})^t\bar{G}^{-1}(u_t)(y_t-C(u_t)x_{t})/2\right\}}{}
+%\]
+\[
+\frac{\sum_{i=1}^N\omega_{t-1}^i \delta_{u^i_{t-1}}(u_{t-1})\varphi_{\Psi^i_{t-1}}(x_{t-1})Q(u^i_{t-1},u_t)m(x_{t-1},u_t;x_t)g(x_t,u_t;y_t)\1_{\Phi^{u_t,y_t}(\Psi^i_{t-1})}(\Psi_t)}{\sum_{i=1}^N\omega_{t-1}^i \int\varphi_{\Psi^i_{t-1}}(x_{t-1})Q(u^i_{t-1},u_t)m(x_{t-1},u_t;x_t)g(x_t,u_t;y_t)\1_{\Phi^{u_t,y_t}(\Psi^i_{t-1})}(\Psi_t)\rmd x_{t-1:t}}
+\]
+\paragraph{Case $\check{h}_t(X_{t-1},X_t) = X_t$}
+Write
+\[
+\mathbb{E}\left[\tilde{h}_t(U_{t-1},U_t)\check{h}_t(X_{t-1},X_t)\middle|Y_{0:t},U_t,\Psi_t\right] = \mathbb{E}\left[\tilde{h}_t(U_{t-1},U_t)X_t\middle|Y_{0:t},U_t,\Psi_t\right] 
+\]
+
+\begin{lemma}
+Let $\Sigma$ be a $m\times m$ positive definite matrice and $a\in\mathbb{R}^m$. Then,
+\begin{eqnarray*}
+&&\int \exp \left(-\frac{1}{2} x^T \Sigma^{-1} x + x^T a \right) \rmd x = \kappa_m(a,\Sigma)\eqsp, \\
+&&\int x \exp \left(-\frac{1}{2} x^T \Sigma^{-1} x + x^T a \right) \rmd x = \kappa_m(a,\Sigma)\Sigma a\eqsp, \\
+&&\int x x^T \exp\left( -\frac{1}{2}x^T \Sigma^{-1} x + x^T a \right) \rmd x = \kappa_m(a,\Sigma)\Sigma \left( I+ a a^T \Sigma^T \right) \eqsp,
+\end{eqnarray*}
+where
+\[
+\kappa_m(a,\Sigma) = \exp \left( \frac{m}{2} \log (2\pi) + \frac{1}{2}\log |\Sigma|+\frac{1}{2}a^T \Sigma a \right)\eqsp.
+\]
+\end{lemma}
+
+%In the case of Markov Switching Linear and Gaussian state space models, this forward decomposition of the FFBS algorithm could be used directly to draw particles $\{(\lambda^i_k,\xi^i_k)\}_{1\le i \le N}$ at each time step. However, this would not benefit from the specific structure of \eqref{} and \eqref{}, as conditional on $\{\Lambda_k\}_{k\ge 0}$,  $\{(X_k,Y_k)\}_{k\ge 0}$ defines a standard linear and Gaussian model. Then, conditional on $\{\Lambda_k\}_{k\ge 0}$ the latent states $\{X_k\}_{k\ge 0}$ can be marginalized explicitly instead of using Monte Carlo simulations. This leads us to consider the following decomposition of \eqref{eq:add:func:smoothed}:
+%\[
+%\mathsf{S}_n \eqdef \mathbb{E}\left[\widetilde{\mathsf{S}}_n(\Lambda_n)\middle|Y_{0:n}\right]\quad\mbox{where}\quad \widetilde{\mathsf{S}}_n(\Lambda_n) \eqdef \mathbb{E}\left[S_n(X_{0:n},\Lambda_{0:n})\middle|\Lambda_n,Y_{0:n}\right]\eqsp.
+%\]
+%
+%\paragraph{Forward decomposition}
+%The crucial difference with the usual forward decomposition is that the states $\{X_k\}_{1\le k\le n}$ may be explicitly marginalized.
+%\begin{align*}
+%\widetilde{\mathsf{S}}_n(\Lambda_n) &= \mathbb{E}\left[S_n(X_{0:n},\Lambda_{0:n})\middle|\Lambda_n,Y_{0:n}\right]\eqsp,\\
+%&= \mathbb{E}\left[S_{n-1}(X_{0:n-1},\Lambda_{0:n-1})\middle|\Lambda_n,Y_{0:n}\right] + \mathbb{E}\left[s^{\Lambda_{n-1},\Lambda_n}_n(X_{n-1},X_n)\middle|\Lambda_n,Y_{0:n}\right]
+%\end{align*}
+%
+%
+%\paragraph{Update with $\mathcal{O}(N)$ complexity}

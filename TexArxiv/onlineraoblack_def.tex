@@ -1,0 +1,250 @@
+\documentclass[a4paper]{article}
+
+\usepackage[notref,notcite]{showkeys}  
+\renewcommand*\showkeyslabelformat[1]{\fbox{\normalfont\scriptsize\sffamily#1}}   
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{oldgerm}
+\usepackage{mathrsfs}
+\usepackage[active]{srcltx}
+\usepackage{verbatim}
+\usepackage{enumerate}
+\usepackage{enumitem} 
+\usepackage[authoryear]{natbib}
+\usepackage[toc,page]{appendix}
+\usepackage{aliascnt,bbm}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xargs}
+\usepackage{cellspace}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{geometry}
+\geometry{top=3cm, bottom=3cm, left=3cm , right=3cm}
+
+
+\usepackage[Symbolsmallscale]{upgreek}
+
+
+\usepackage{accents}
+\usepackage{dsfont}
+\usepackage{aliascnt}
+\usepackage{cleveref}
+\makeatletter
+\newtheorem{theorem}{Theorem}
+\crefname{theorem}{theorem}{Theorems}
+\Crefname{Theorem}{Theorem}{Theorems}
+
+
+\newaliascnt{lemma}{theorem}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{Lemma}{Lemma}{Lemmas}
+
+\newaliascnt{corollary}{theorem}
+\newtheorem{corollary}[corollary]{Corollary}
+\aliascntresetthe{corollary}
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{Corollary}{Corollary}{Corollaries}
+
+\newaliascnt{proposition}{theorem}
+\newtheorem{proposition}[proposition]{Proposition}
+\aliascntresetthe{proposition}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{Proposition}{Proposition}{Propositions}
+
+\newaliascnt{definition}{theorem}
+\newtheorem{definition}[definition]{Definition}
+\aliascntresetthe{definition}
+\crefname{definition}{definition}{definitions}
+\Crefname{Definition}{Definition}{Definitions}
+
+\newaliascnt{remark}{theorem}
+\newtheorem{remark}[remark]{Remark}
+\aliascntresetthe{remark}
+\crefname{remark}{remark}{remarks}
+\Crefname{Remark}{Remark}{Remarks}
+
+
+\newtheorem{example}[theorem]{Example}
+\crefname{example}{example}{examples}
+\Crefname{Example}{Example}{Examples}
+
+
+\crefname{figure}{figure}{figures}
+\Crefname{Figure}{Figure}{Figures}
+
+
+\newtheorem{assumptionH}{\textbf{H}\hspace{-3pt}}
+\Crefname{assumptionH}{\textbf{H}\hspace{-3pt}}{\textbf{H}\hspace{-3pt}}
+\crefname{assumptionH}{\textbf{H}}{\textbf{H}}
+
+\newtheorem{assumptionG}{\textbf{G}\hspace{-3pt}}
+\Crefname{assumptionG}{\textbf{G}\hspace{-3pt}}{\textbf{H}\hspace{-3pt}}
+\crefname{assumptionG}{\textbf{G}}{\textbf{G}}
+
+\newtheorem{assumptionA}{\textbf{A}\hspace{-3pt}}
+\Crefname{assumptionA}{\textbf{A}\hspace{-3pt}}{\textbf{A}\hspace{-3pt}}
+\crefname{assumptionA}{\textbf{A}}{\textbf{A}}
+
+
+
+\providecommand*{\definitionautorefname}{Definition}
+\providecommand*{\lemmaautorefname}{Lemma}
+\providecommand*{\exampleautorefname}{Example}
+\providecommand*{\propositionautorefname}{Proposition}
+\providecommand*{\procautorefname}{Procedure}
+\providecommand*{\exerciseautorefname}{Exercise}
+\providecommand*{\corollaryautorefname}{Corollary}
+\providecommand*{\remarkautorefname}{Remark}
+\providecommand*{\algorithmautorefname}{Algorithm}
+\providecommand*{\assumptionautorefname}{H\hspace*{-3pt}}
+\providecommand*{\assumptionARautorefname}{AR\hspace*{-3pt}}
+\providecommand*{\assumptionCNautorefname}{CN\hspace*{-3pt}}
+
+
+\def\Rset{\mathbb{R}}
+\def\Nset{\mathbb{N}}
+\def\nset{\mathbb{N}}
+\def\rset{\mathbb{R}}
+\def\varb{b}
+
+
+\def\dimlabel{\mathsf{m}}
+\def\labelinit{\pi}
+\def\labelkernel{Q}
+\def\dimU{\mathsf{q}}
+\def\dimX{\mathsf{d}}
+\def\dimY{\mathsf{p}}
+\newcommand{\post}[2]{\phi_{#1}^{#2}}
+
+
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+
+
+\def\ie{\text{i.e.}}
+\newcommand{\coint}[1]{\left[#1\right)}
+\newcommand{\ocint}[1]{\left(#1\right]}
+\newcommand{\ooint}[1]{\left(#1\right)}
+\newcommand{\ccint}[1]{\left[#1\right]}
+\newcommand{\Wienerspace}{\mathbf{W}}
+
+\def\PE{\mathbb{E}}
+\newcommandx{\CPE}[3][1=]{{\mathbb E}_{#1}\left[\left. #2 \, \right| #3 \right]} \newcommandx{\PEt}[2][1=]{\PE_{#1}\left[#2\right]}
+\def\rmd{\mathrm{d}}
+\def\rme{\mathrm{e}}
+\def\target{\pi}
+\def\dim{d}
+\def\score{\accentset{\largedot}{\ell}}
+\def\Vdot{\dot{V}}
+\def\I{\mathcal{I}}
+\def\Iopen{\mathring{\mathcal{I}}}
+\def\Iclosed{\overline{\mathcal{I}}}
+\def\unitarget{\pi}
+\def\rmL{\mathrm{L}}
+\def\Lp{\rmL^p}
+\def\bfX{\boldsymbol{X}}
+\def\xbf{\boldsymbol{x}}
+\def\ybf{\boldsymbol{y}}
+\def\Xbf{\boldsymbol{X}}
+\def\G{\mathcal{G}}
+\def\Gammabf{\mathbf{\Gamma}}
+\def\Ybf{\boldsymbol{Y}}
+\newcommand{\norm}[1]{\left\Vert #1 \right \Vert}
+\newcommand{\plusinfty}{+ \infty}
+\newcommand{\defEns}[1]{\left \{ #1 \right \}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\def\Zbf{\boldsymbol{Z}}
+\def\eqsp{\,}
+\def\leb{\lambda}
+\def\limd{\underset{d\to +\infty}{\longrightarrow}}
+\def\wrt{with respect to}
+\newcommand{\parenthese}[1]{\left( #1 \right)}
+\newcounter{hypH}
+\newenvironment{hypH}{\refstepcounter{hypH}\begin{itemize}
+\item[{\bf H\arabic{hypH}}]}{\end{itemize}}
+\newcommand{\eqdef}{\ensuremath{:=}}
+\newcommand{\setAccept}{\mathcal{A}}
+\def\iid{\operatorname{i.i.d.}}
+\newcommand{\sachant}[1]{\left| #1 \right.}
+\newcommand{\setDisconDotV}{\mathcal{D}_{\dot{V}}}
+
+\def\restriction#1#2{\mathchoice
+              {\setbox1\hbox{${\displaystyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\textstyle #1}_{\scriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}
+              {\setbox1\hbox{${\scriptscriptstyle #1}_{\scriptscriptstyle #2}$}
+              \restrictionaux{#1}{#2}}}
+\def\restrictionaux#1#2{{#1\,\smash{\vrule height .8\ht1 depth .85\dp1}}_{\,#2}}
+
+\newcommandx\sequence[3][2=,3=]
+{\ifthenelse{\equal{#3}{}}{\ensuremath{\{ #1_{#2}\}}}{\ensuremath{( #1_{#2}, \eqsp #2 \in #3 )}}}
+\newcommandx{\sequencen}[2][2=n\in\nset]{\ensuremath{( #1, \eqsp #2 )}}
+\newcommandx\dsequence[4][3=k,4=\zset]{\ensuremath{( (#1_{#3}, #2_{#3}), \eqsp #3 \in #4 )}}
+\newcommandx{\as}[1][1=\PP]{\ensuremath{#1\--\mathrm{a.s.}}}
+\newcommand{\eqspp}{\ \ }
+
+\def\canonicalFiltration{\mathscr{B}}
+
+\def\tildeX{\widetilde{X}}
+\def\tildeY{\widetilde{Y}}
+\def\barX{\bar{X}}
+\def\barY{\bar{Y}}
+\def\barS{\bar{S}}
+\newcommand{\coupling}[2]{\mathcal{C}(#1,#2)}
+\newcommand\proba[1]{\mathbb{P}\left[ #1 \right]}
+\newcommand\expe[1]{\PE\left[ #1 \right]}
+\def\osc{\operatorname{osc}}
+\def\borel{\mathcal{B}}
+\def\mcf{\mathcal{F}}
+\def\WassersteinDistance{\mathcal{W}_1}
+\def\sign{\mathrm{sign}}
+
+\def\pdf{\pi}
+\def\sqpdf{\xi}
+\def\logliks{\ell}
+
+\newcommand{\lone}{\ensuremath{\mathrm{L}^1}}
+\newcommand{\ltwo}{\ensuremath{\mathrm{L}^2}}
+\newcommand{\ltworset}{\ensuremath{\mathrm{L}^2(\rset)}}
+\newcommandx{\lp}[1][1=p]{\ensuremath{\mathrm{L}^{{#1}}}}
+\newcommand{\linfty}{\ensuremath{\mathrm{L}^\infty}}
+\def\dommeas{\ensuremath{\lambda}}
+
+\def\coeffLasso{\lambda}
+\def\smoothPotLasso{U}
+\def\Erm{\mathrm{E}}
+\def\Dcal{\mathcal{D}}
+\def\Jrm{\mathrm{J}}
+\def\Lrm{\mathrm{L}}
+\def\Xsf{\mathsf{X}}
+\def\Ysf{\mathsf{Y}}
+\def\Usf{\mathsf{U}}
+\def\constSet{\mathrm{r}}
+\def\Vgamma{V_{\upgamma}}
+\def\Vgammadot{\dot{V}_{\upgamma}}
+\def\pigamma{\pi_{\upgamma}}
+\def\Vbeta{V_{\upbeta}}
+\def\Vbetadot{\dot{V}_{\upbeta}}
+\def\pibeta{\pi_{\upbeta}}
+\def\ESJD{\operatorname{ESJD}}
+\def\rma{\mathrm{a}}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "scaling_HM_L1"
+%%% End:

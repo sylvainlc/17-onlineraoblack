@@ -1,0 +1,27 @@
+Consider $\{(U_k,X_k,Y_k)\}_{k\ge 0}$ a discrete time stochastic process taking values in $\Rset^{\dimU}\times\Rset^{\dimX}\times\Rset^{\dimY}$. It is assumed that this process is conditionally linear and Gaussian: $\{U_k\}_{k\ge 0}$ is a Markov chain on $\Rset^{\dimU}$ with initial distribution $\pi$ and transition kernel $\labelkernel$ and: 
+\begin{align*}
+X_0&\sim \mathcal{N}(\mu_0,\Sigma_0)\;\mbox{and for all}\; k\ge 0,\\
+X_{k+1 }& = A(U_{k+1})X_{k} + B(U_{k+1})V_{k+1}\eqsp,\\ 
+Y_k & = C(U_k)X_{k} + D(U_k)W_k\eqsp,
+\end{align*}
+where $\{V_k\}_{k\ge 1}$ and $\{W_k\}_{k\ge 0}$ are independent sequence of i.i.d standard Gaussian vectors on $\Rset^{\dimX}$ and $\Rset^{\dimY}$. The distribution of $(U_0,X_0,Y_0)$ is given by 
+\[
+\mathbb{E}\left[h(U_0,X_0,Y_0)\right] = \int \pi(u)h(u,x,y)\varphi_{\mu_0,\Sigma_0}(x)\varphi_{C(u)x,D(u)D(u)^t}(y)\rmd u\rmd x\rmd y\eqsp.
+\]
+Conditional on $\mathcal{F}_{k} \eqdef \sigma\{(U_i,X_i,Y_i)_{0\le i \le k}\}$,
+\begin{multline*}
+\mathbb{E}\left[h(U_{k+1},X_{k+1},Y_{k+1})\middle| \mathcal{F}_{k}\right] \\
+= \int \labelkernel(U_{k},u)h(u,x,y)\varphi_{A(u)X_k,B(u)B(u)^t}(x)\varphi_{C_{u}x,D(u)D(u)^t}(Y_{k+1})\rmd x\eqsp.
+\end{multline*}
+%For all $0\le k_1 \le k_2$, denote by $\post{k1:k_2|n}{}$ the conditional distribution of $(\Lambda_{k_1:k_2},X_{k_1:k_2})$ given the observations $Y_{0:n}$ with $\post{k1|n}{} \eqdef \post{k1:k_1|n}{}$ as shorthand notation.
+The objective of this paper is to compute recursively in time smoothed expectations of additive functionals of the form:
+\begin{equation}
+\label{eq:add:func:smoothed}
+\mathsf{H}_t \eqdef \mathbb{E}\left[h_t(U_{0:t},X_{0:t})\middle|Y_{0:t}\right]\eqsp,
+\end{equation} 
+where
+\begin{equation}
+\label{eq:add:func}
+h_t(u_{0:t},x_{0:t}) \eqdef \sum_{s=1}^{t}\tilde{h}_s(u_{s-1},u_s)\check{h}(x_{s-1},x_s) \eqsp.
+\end{equation}
+These expectations are of utmost interest to perform maximum likelihood estimation for Markov Switching Linear and Gaussian state space models (for instance to compute the intermediate quantity of the Expectation Maximization algorithm or the score function to implement gradient ascent algorithms). In the case of very large data sets, batch algorithms become impractical and {\em online} estimation procedures, processing data on-the-fly, have to be used. Many algorithms have been proposed to perform online maximum likelihood estimation in hidden Markov models, see for instance \cite{cappe:moulines:2009} for independent and identically distributed (i.i.d.) observations, \cite{mongillo:deneve:2008} (resp. \cite{cappe:2011}) when both the observations and the states take a finite number of values (resp. when the states take a finite number of values). \citet{cappe:2009,delmoral:doucet:singh:2010a,lecorff:fort:moulines:2011} introduced extensions of the online EM algorithm to the case of general state space models using Sequential Monte Carlo algorithms to approximate the smoothing distributions. 

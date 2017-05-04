@@ -1,0 +1,50 @@
+Consider $\{(\lambda_k,X_k,Y_k)\}_{k\ge 0}$ a discrete time stochastic process taking values in $\{1,\ldots,K\}\times\Rset\times\Rset$. It is assumed that this process is conditionally linear and Gaussian: $\{\lambda_k\}_{k\ge 0}$ is a Markov chain on $\{1,\ldots,K\}$ with initial distribution $\pi$ and transition kernel $\labelkernel$, $X_0\sim \mathcal{N}(\mu_{\lambda_0},\Sigma_{\lambda_0})$ and for all $k\ge 0$: 
+\begin{align*}
+X_{k+1 }& = a(\lambda_{k+1})X_{k} + b(\lambda_{k+1})V_{k+1}\eqsp,\\ 
+Y_k & = c(\lambda_k)X_{k} + d(\lambda_k)W_k\eqsp,
+\end{align*}
+where $\{V_k\}_{k\ge 1}$ and $\{W_k\}_{k\ge 0}$ are independent sequence of i.i.d standard Gaussian random variables. The distribution of $(U_0,X_0,Y_0)$ is given by 
+\[
+\mathbb{E}\left[h(\lambda_0,X_0,Y_0)\right] = \sum_{i=1}^K\pi(i)\int h(i,x,y)\varphi_{\mu_i,\Sigma_i}(x)\varphi_{c(i)x,d^2(i)}(y)\rmd x\rmd y\eqsp.
+\]
+Conditional on $\mathcal{F}_{k} \eqdef \sigma\{(\lambda_i,X_i,Y_i)_{0\le i \le k}\}$,
+\begin{equation*}
+\mathbb{E}\left[h(\lambda_{k+1},X_{k+1},Y_{k+1})\middle| \mathcal{F}_{k}\right] = \sum_{i=1}^K\int \labelkernel(\lambda_{k},i)h(i,x,y)\varphi_{a(i)X_k,b^2(i)}(x)\varphi_{c(i)x,d^2(i)}(Y_{k+1})\rmd x\eqsp.
+\end{equation*}
+The objective of this paper is to compute recursively in time smoothed expectations of additive functionals of the form:
+\begin{equation}
+\label{eq:add:func:smoothed}
+\mathsf{H}_t \eqdef \mathbb{E}\left[h_t(\lambda_{0:t},X_{0:t})\middle|Y_{0:t}\right]\eqsp,
+\end{equation} 
+where
+\begin{equation}
+\label{eq:add:func}
+h_t(\lambda_{0:t},x_{0:t}) \eqdef \sum_{s=1}^{t}\tilde{h}_s(\lambda_{s-1},\lambda_s)\check{h}(x_{s-1},x_s) \eqsp.
+\end{equation}
+To compute $\mathsf{H}_t $ online, define: 
+\[
+\mathsf{T}_t[h_t](\lambda_t,X_t) = \mathbb{E}\left[h_t(\lambda_{0:t},X_{0:t})\middle|Y_{0:t},\lambda_t,X_t\right]\eqsp.
+\]
+This expectation may be computed recursively by noting that
+\begin{align*}
+\mathsf{T}_t[h_t](\lambda_t,X_t) &= \mathbb{E}\left[h_{t-1}(\lambda_{0:t-1},X_{0:t-1})\middle|Y_{0:t},\lambda_t,X_t\right] \\
+&\hspace{3.5cm}+ \mathbb{E}\left[\tilde{h}_t(\lambda_{t-1},\lambda_t)\check{h}_t(X_{t-1},X_t)\middle|Y_{0:t},\lambda_t,X_t\right]\eqsp,\\
+&= \mathbb{E}\left[\mathsf{T}_{t-1}[h_{t-1}](\lambda_{t-1},X_{t-1}) \middle|Y_{0:t-1},\lambda_{t},X_t\right] \\
+&\hspace{3.5cm}+ \mathbb{E}\left[\tilde{h}_t(\lambda_{t-1},\lambda_t)\check{h}_t(X_{t-1},X_t)\middle|Y_{0:t-1},\lambda_t,X_t\right]\eqsp.
+\end{align*}
+Conditionally on $\lambda_{0:t}$ and $Y_{0:t}$, $X_t$ is a Gaussian random variable with mean $\mu_t$ and variance $\sigma^2_t$.  Write $\Psi_t = (\mu_t,\sigma^2_t)$. The conditional distribution of $\lambda_{0:t}$ given $Y_{0:t}$ may be approximated using weighted samples $\{(\lambda^i_{0:t},\omega_t^i)\}_{1\le i \le N}$ by ({\bf Add mixture Kalman filters for CLGM}): XXX. Denote by $\Psi^i_t = (\mu^i_t,\sigma^{2,i}_t)$ the mean and variance of the conditional distribution of $X_{t}$ given $\lambda^i_{0:t}$ and $Y_{0:t}$. Then, the conditional distribution of $(\lambda_{t-1},x_{t-1})$ given $(Y_{0:t-1},X_t,\lambda_t)$ is approximated by:
+%\[
+%\frac{\sum_{i=1}^N\omega_{t-1}^i \delta_{u^i_{t-1}}(u_{t-1})\varphi_{\Psi^i_{t-1}}(x_{t-1})Q(u^i_{t-1},u_t)\exp\left\{(x_t-A(u_t)x_{t-1})^t\bar{B}^{-1}(u_t)(x_t-A(u_t)x_{t-1})/2\right\}\exp\left\{(y_t-C(u_t)x_{t})^t\bar{G}^{-1}(u_t)(y_t-C(u_t)x_{t})/2\right\}}{}
+%\]
+\[
+(\lambda_{t-1},x_{t-1})\mapsto\frac{\sum_{i=1}^N\omega_{t-1}^i Q(\lambda^i_{t-1},\lambda_t)\delta_{\lambda^i_{t-1}}(\lambda_{t-1})\varphi_{\Psi^i_{t-1}}(x_{t-1})m(x_{t-1},\lambda_t;x_t)}{\sum_{i=1}^N\omega_{t-1}^i Q(\lambda^i_{t-1},\lambda_t)\int\varphi_{\Psi^i_{t-1}}(x_{t-1})m(x_{t-1},\lambda_t;x_t)\rmd x_{t-1}}\eqsp.
+\]
+
+The following Lemma is a standard result to perform Kalman filtering and smoothing and is stated without proof.
+\begin{lemma}
+\label{lem:kalma:update}
+For all $\mu,a,b\in\rset$, $\sigma\in\rset_+^{\star}$,
+\[
+\varphi_{\mu;\sigma^2}(x_1)\varphi_{ax_1;b^2}(x_2) = \varphi_{\frac{\mu b^2 + a\sigma^2x_2}{b^2+a^2\sigma^2};\frac{\sigma^2b^2}{b^2+a^2\sigma^2}}(x_1)\varphi_{\mu a;b^2+a^2\sigma^2}(x_2)\eqsp.
+\]
+\end{lemma}
